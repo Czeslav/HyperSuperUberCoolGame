@@ -15,11 +15,15 @@ namespace Hyper_Super_Uber_Cool_Game
     static class SpriteBank
     {
         public static Texture2D particle_flame;
+        public static Texture2D particle_ice;
+        public static Texture2D spaceship;
 
 
         public static void Load(ContentManager Content)
         {
             particle_flame = Content.Load<Texture2D>("particle_fire");
+            particle_ice = Content.Load<Texture2D>("particle_ice");
+            spaceship = Content.Load<Texture2D>("spaceship");
         }
     }
 }

@@ -24,10 +24,18 @@ namespace Hyper_Super_Uber_Cool_Game
         private bool alfaUp = true;
 
 
-        public Particle(Texture2D texture, Vector2 location)
+        public Particle(ParticleType type, Vector2 location)
         {
-            this.texture = texture;
             this.location = location;
+
+            if (type==ParticleType.fire)
+            {
+                texture = SpriteBank.particle_flame;
+            }
+            if (type==ParticleType.ice)
+            {
+                texture = SpriteBank.particle_ice;
+            }
 
             velocity = new Vector2(Globs.rand.Next(-5, 5) / 15.0f, Globs.rand.Next(-5, 5) / 15.0f);
         }

@@ -12,46 +12,62 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Hyper_Super_Uber_Cool_Game
 {
-    enum ParticleType { fire, none };
+    enum ParticleType { fire, ice };
 
     class ParticleEngine
     {
-        private List<ParticleSpot> SpotList;
+        //private List<ParticleSpot> SpotList;
+        private ParticleSpot[] SpotList;
+        private int spotListIndex = 0;
+
         public int howManySpots;
         public int howManyParticles;
+
+        //private StreamWriter writer;
 
 
         public ParticleEngine()
         {
-            SpotList = new List<ParticleSpot>();
+            //SpotList = new List<ParticleSpot>();
+            SpotList = new ParticleSpot[255];
         }
 
         public void AddSpot(Vector2 location, ParticleType type)
         {
-            SpotList.Add(new ParticleSpot(location, type));
+            SpotList[spotListIndex] = new ParticleSpot(location, type);
+            spotListIndex++;
+            if (spotListIndex>=255)
+            {
+                spotListIndex = 0;
+            }
         }
 
 
         public void Update()
         {
-            howManySpots = SpotList.Count;
+            howManySpots = spotListIndex;
             howManyParticles = 0;
 
-            foreach (var spot in SpotList)
+            //foreach (var spot in SpotList)
+            for (int i = 0; i < SpotList.Length; i++)
             {
-                spot.Update();
-
-                spot.AddParticle();
-
-                howManyParticles += spot.partclesUsed;
-
-                if (spot.dead)
+                if (SpotList[i]==null)
                 {
-                    SpotList.Remove(spot);
-                    return;
+                    break;
                 }
 
-                
+                SpotList[i].Update();
+
+                SpotList[i].AddParticle();
+
+                howManyParticles += SpotList[i].partclesUsed;
+
+                /*if (SpotList[i].dead)
+                {
+                    //SpotList.Remove(spot);
+
+                    return;
+                }*/
             }
         }
 
@@ -59,6 +75,10 @@ namespace Hyper_Super_Uber_Cool_Game
         {
             foreach (var spot in SpotList)
             {
+                if (spot == null)
+                {
+                    return;
+                }
                 spot.Draw(spriteBatch);
             }
         }

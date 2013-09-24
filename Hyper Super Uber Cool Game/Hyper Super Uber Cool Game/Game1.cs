@@ -80,7 +80,7 @@ namespace Hyper_Super_Uber_Cool_Game
 
             if (currentMouse.LeftButton == ButtonState.Pressed)
             {
-                particleEngine.AddSpot(new Vector2(currentMouse.X, currentMouse.Y), ParticleType.fire);
+                particleEngine.AddSpot(new Vector2(currentMouse.X + SpriteBank.particle_flame.Width/2, currentMouse.Y+SpriteBank.particle_flame.Height/2), ParticleType.fire);
             }
 
 
@@ -102,8 +102,6 @@ namespace Hyper_Super_Uber_Cool_Game
             spriteBatch.Begin();
 
             particleEngine.Draw(spriteBatch);
-
-            spriteBatch.DrawString(debugFont, "Spots = " + particleEngine.howManySpots.ToString() + "\nParticles = " + particleEngine.howManyParticles.ToString(), new Vector2(20, 20), Color.White);
 
             spriteBatch.End();
 
